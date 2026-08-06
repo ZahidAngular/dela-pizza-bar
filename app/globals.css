@@ -1,26 +1,419 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ------------------------------------------------------------------
+   Tokens are semantic, not literal:
+     ink / ink-2 = page + alternate section background
+     surface     = raised card
+     cream       = foreground text
+     line        = hairline borders
+   Each theme redefines the raw values, so every component flips for
+   free — no `dark:` variants scattered through the markup.
+------------------------------------------------------------------- */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-line: var(--c-line);
+  --color-line-soft: var(--c-line-soft);
+
+  --color-brand: var(--c-brand);
+  --color-brand-bright: var(--c-brand-bright);
+  --color-brand-deep: var(--c-brand-deep);
+
+  --color-gold: var(--c-gold);
+  --color-gold-soft: var(--c-gold-soft);
+  --color-gold-deep: var(--c-gold-deep);
+
+  --color-cream: var(--c-cream);
+  --color-muted: var(--c-muted);
+
+  --font-display: var(--font-display-serif), "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------------- Dark (default) ---------------- */
+:root,
+[data-theme="dark"] {
+  --c-ink: #0b0a09;
+  --c-ink-2: #100e0c;
+  --c-surface: #16130f;
+  --c-surface-2: #1d1914;
+  --c-line: #2b2620;
+  --c-line-soft: #201c17;
+
+  --c-brand: #d92027;
+  --c-brand-bright: #ef3b41;
+  --c-brand-deep: #7d1215;
+
+  --c-gold: #d9b26a;
+  --c-gold-soft: #f0dcb2;
+  --c-gold-deep: #a8813f;
+
+  --c-cream: #f7f2e9;
+  --c-muted: #9b9287;
+
+  --shadow-key: 0 30px 60px -30px rgb(0 0 0 / 0.85);
+  --grain-opacity: 0.05;
+  --grain-blend: normal;
+  color-scheme: dark;
+}
+
+/* ---------------- Light ---------------- */
+[data-theme="light"] {
+  --c-ink: #fbf8f3;
+  --c-ink-2: #f3eee5;
+  --c-surface: #ffffff;
+  --c-surface-2: #f7f2e9;
+  --c-line: #e0d8ca;
+  --c-line-soft: #ebe4d7;
+
+  --c-brand: #c8161d;
+  --c-brand-bright: #e02a31;
+  --c-brand-deep: #8c1013;
+
+  --c-gold: #9a6f22;
+  --c-gold-soft: #c99b46;
+  --c-gold-deep: #7a5616;
+
+  --c-cream: #1a1512;
+  --c-muted: #786d5e;
+
+  --shadow-key: 0 24px 50px -28px rgb(60 45 25 / 0.35);
+  --grain-opacity: 0.035;
+  --grain-blend: multiply;
+  color-scheme: light;
+}
+
+/* Content sitting on top of photography always uses the dark palette,
+   in either theme — white text on an image, never black. */
+.on-photo {
+  --c-ink: #0b0a09;
+  --c-ink-2: #100e0c;
+  --c-surface: #16130f;
+  --c-surface-2: #1d1914;
+  --c-line: #2b2620;
+  --c-line-soft: #201c17;
+  --c-gold: #d9b26a;
+  --c-gold-soft: #f0dcb2;
+  --c-cream: #f7f2e9;
+  --c-muted: #a89f93;
+  --grain-blend: normal;
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--c-line);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--c-ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--c-ink);
+  color: var(--c-cream);
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.5s var(--ease-out-expo),
+    color 0.5s var(--ease-out-expo);
+}
+
+::selection {
+  background: var(--c-gold);
+  color: var(--c-ink);
+}
+
+/* ---------------- Layout ---------------- */
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container-x {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* ---------------- Type ---------------- */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+@utility label-xs {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mask-up {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Component classes live in the components layer so Tailwind utilities
+   (hidden, fixed, px-*, …) always win over them at equal specificity. */
+@layer components {
+  .serif-italic {
+    font-style: italic;
+    color: var(--c-gold);
+  }
+
+  /* ---------------- Surface treatments ---------------- */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: var(--grain-blend);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .gold-line {
+    height: 1px;
+    width: 3.5rem;
+    background: var(--c-gold);
+  }
+
+  /* ---------------- Buttons ---------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition:
+      color 0.4s var(--ease-out-expo),
+      background-color 0.4s var(--ease-out-expo),
+      border-color 0.4s var(--ease-out-expo);
+  }
+
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    padding: 1.0625rem 2.25rem;
+    color: #f7f2e9;
+    background: var(--c-brand);
+    isolation: isolate;
+  }
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      100deg,
+      var(--c-brand-bright),
+      var(--c-brand-deep)
+    );
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out-expo);
+  }
+  .btn-primary:hover::after {
+    opacity: 1;
+  }
+
+  .btn-ghost {
+    padding: 1.0625rem 2.25rem;
+    color: var(--c-cream);
+    border: 1px solid color-mix(in oklab, var(--c-cream) 25%, transparent);
+  }
+  .btn-ghost:hover {
+    border-color: var(--c-gold);
+    color: var(--c-gold);
+  }
+
+  .btn-gold {
+    padding: 1.0625rem 2.25rem;
+    color: #fbf8f3;
+    background: var(--c-gold);
+  }
+  .btn-gold:hover {
+    background: var(--c-gold-deep);
+  }
+  [data-theme="dark"] .btn-gold {
+    color: #0b0a09;
+  }
+  [data-theme="dark"] .btn-gold:hover {
+    background: var(--c-gold-soft);
+  }
+
+  /* Theme toggle shows the icon for the theme you'd switch TO */
+  .theme-icon-moon {
+    display: none;
+  }
+  [data-theme="light"] .theme-icon-sun {
+    display: none;
+  }
+  [data-theme="light"] .theme-icon-moon {
+    display: block;
+  }
+
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.35rem;
+    height: 1px;
+    width: 0;
+    background: var(--c-gold);
+    transition: width 0.5s var(--ease-out-expo);
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* ---------------- Cards ---------------- */
+  .card {
+    position: relative;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-soft);
+    transition:
+      border-color 0.5s var(--ease-out-expo),
+      background-color 0.5s var(--ease-out-expo);
+  }
+  .card:hover {
+    border-color: color-mix(in oklab, var(--c-gold) 40%, transparent);
+    background: var(--c-surface-2);
+  }
+
+  .glass {
+    background: color-mix(in oklab, var(--c-ink) 78%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  .shadow-key {
+    box-shadow: var(--shadow-key);
+  }
+
+  /* ---------------- Media ---------------- */
+  .img-warm {
+    filter: saturate(1.05) contrast(1.04);
+  }
+
+  .zoom-parent img {
+    transition: transform 1.4s var(--ease-out-expo);
+  }
+  .zoom-parent:hover img {
+    transform: scale(1.06);
+  }
+
+  /* ---------------- Motion ---------------- */
+  .marquee-track {
+    animation: marquee-x 40s linear infinite;
+    will-change: transform;
+  }
+  .marquee-track-slow {
+    animation-duration: 70s;
+  }
+
+  /* Hero entrance runs on the CSS timeline, not rAF, so the above-the-fold
+     copy is never left invisible if JS animation is throttled or fails. */
+  .rise-in {
+    animation: rise-in 0.9s var(--ease-out-expo) both;
+  }
+
+  .mask-up {
+    animation: mask-up 1.05s var(--ease-out-expo) both;
+  }
+
+  .float-slow {
+    animation: float-y 8s ease-in-out infinite;
+  }
+
+
+}
+
+/* ---------------- Scrollbar ---------------- */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--c-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-line);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-gold-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
