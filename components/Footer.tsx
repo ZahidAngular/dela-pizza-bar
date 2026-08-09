@@ -1,5 +1,6 @@
 import { MapPin, Phone } from "lucide-react";
 import { InstagramIcon } from "@/components/icons";
+import { ContactTrigger } from "@/components/ContactProvider";
 import { Wordmark } from "@/components/Logo";
 import { site } from "@/lib/site";
 
@@ -15,7 +16,7 @@ const nav = [
 export function Footer() {
   return (
     <footer className="relative border-t border-line bg-ink-2">
-      <div className="container-x py-24 lg:py-32">
+      <div className="container-x py-16 lg:py-20">
         <div className="grid gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
           <div>
             <span className="eyebrow text-gold">Hungry?</span>
@@ -53,6 +54,11 @@ export function Footer() {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <ContactTrigger className="link-underline text-[0.88rem] text-body transition-colors hover:text-cream">
+                    Contact
+                  </ContactTrigger>
+                </li>
               </ul>
             </div>
 
@@ -106,8 +112,8 @@ export function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <div className="container-x flex flex-col items-center justify-between gap-6 py-8 sm:flex-row">
-          <Wordmark />
+        <div className="container-x flex flex-col items-center justify-between gap-5 py-6 sm:flex-row">
+          <Wordmark className="h-8" />
           <p className="text-center text-[0.75rem] text-muted sm:text-left">
             © {new Date().getFullYear()} {site.legalName}. All rights reserved.
           </p>

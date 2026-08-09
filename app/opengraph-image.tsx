@@ -1,9 +1,18 @@
 import { ImageResponse } from "next/og";
+import { lockupSvgString } from "@/components/Logo";
 import { site } from "@/lib/site";
 
 export const alt = `${site.name} — stone-baked pizza in Blair Athol, Adelaide`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+/* Satori has no access to the site's CSS or fonts, but the logo is pure
+   geometry — so the same paths the navbar uses are inlined as a data URI
+   and the card gets the real wordmark rather than a facsimile. */
+const LOCKUP_W = 300;
+const lockupUri = `data:image/svg+xml;utf8,${encodeURIComponent(
+  lockupSvgString("#f7f2e9", "#d9b26a", LOCKUP_W)
+)}`;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -21,37 +30,9 @@ export default function OpengraphImage() {
           fontFamily: "serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div
-            style={{
-              width: 54,
-              height: 54,
-              borderRadius: 999,
-              background: "#d92027",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#f7f2e9",
-              fontSize: 30,
-            }}
-          >
-            ▲
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ color: "#f7f2e9", fontSize: 34, lineHeight: 1 }}>
-              Dela
-            </span>
-            <span
-              style={{
-                color: "#d9b26a",
-                fontSize: 15,
-                letterSpacing: 5,
-                marginTop: 6,
-              }}
-            >
-              PIZZA BAR
-            </span>
-          </div>
+        <div style={{ display: "flex" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={lockupUri} width={LOCKUP_W} alt="" />
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>

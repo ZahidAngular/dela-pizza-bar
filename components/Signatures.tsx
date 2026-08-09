@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
+import { Parallax } from "@/components/Parallax";
 import { SectionHeading } from "@/components/SectionHeading";
 import { RevealGroup, RevealItem } from "@/components/Reveal";
 import { useOrder } from "@/components/OrderProvider";
@@ -31,13 +32,15 @@ export function Signatures() {
             <RevealItem key={item.name}>
               <article className="zoom-parent group">
                 <div className="relative aspect-3/4 overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={`${item.name} pizza`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="img-warm object-cover"
-                  />
+                  <Parallax className="absolute inset-0">
+                    <Image
+                      src={item.image}
+                      alt={`${item.name} pizza`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="img-warm object-cover"
+                    />
+                  </Parallax>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-75" />
                   <span className="label-xs absolute left-5 top-5 border border-white/25 bg-black/45 px-3 py-1.5 text-gold-soft backdrop-blur-sm">
                     {item.badge}

@@ -43,9 +43,11 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* Scrims: readable text, still a visible photograph */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/72 to-ink/15" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-ink/55" />
+      {/* Scrims: readable text, still a visible photograph. The left edge
+          stops short of solid ink — enough to clear AA on the body copy,
+          not so much that the pizza disappears behind a black panel. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink/92 via-ink/55 to-ink/5" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/15 to-ink/45" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
 
       <motion.div style={{ y: contentY }} className="relative z-10 pt-36">
