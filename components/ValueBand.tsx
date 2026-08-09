@@ -2,14 +2,14 @@ import { RevealGroup, RevealItem } from "@/components/Reveal";
 
 const values = [
   {
-    stat: "From $22",
-    title: "Fair pricing",
-    body: 'A full 12" large starts at $22. Family size 15" from $33.',
+    stat: "From $16",
+    title: "Three sizes",
+    body: 'L 12" from $16, F 15" from $22, P 18" from $32. Combo deals from $24.',
   },
   {
-    stat: "Dine in",
-    title: "Eat in or take away",
-    body: "Take a seat at the counter or take the box home — same price either way.",
+    stat: "Halal",
+    title: "Certified halal",
+    body: "Every pizza, every topping. The whole kitchen, not just a couple of items.",
   },
   {
     stat: "Delivered",
@@ -44,8 +44,8 @@ export function ValueBand() {
               <p className="display text-[1.9rem] text-cream transition-colors duration-500 group-hover:text-gold">
                 {v.stat}
               </p>
-              <h3 className="label-xs mt-4 text-gold/85">{v.title}</h3>
-              <p className="mt-3 max-w-xs text-[0.87rem] leading-[1.75] text-cream/55">
+              <h3 className="label-xs mt-4 text-gold">{v.title}</h3>
+              <p className="mt-3 max-w-xs text-[0.87rem] leading-[1.75] text-body-soft">
                 {v.body}
               </p>
             </RevealItem>

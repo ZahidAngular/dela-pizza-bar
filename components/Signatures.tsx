@@ -56,7 +56,7 @@ export function Signatures() {
                   </span>
                 </div>
 
-                <p className="mt-4 text-[0.9rem] leading-[1.75] text-cream/55">
+                <p className="mt-4 text-[0.9rem] leading-[1.75] text-body-soft">
                   {item.description}
                 </p>
 

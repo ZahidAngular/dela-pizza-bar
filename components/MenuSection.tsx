@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Phone } from "lucide-react";
-import { menu } from "@/lib/menu";
+import { menu, sizeColumns, type MenuItem } from "@/lib/menu";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { useOrder } from "@/components/OrderProvider";
-import type { OrderSize } from "@/lib/order";
+import { sizeLabel, type OrderSize } from "@/lib/order";
 
 /**
  * The price *is* the add button — no extra chrome, and the size you tap is
@@ -29,7 +29,7 @@ function PriceButton({
   const label =
     size === "Single"
       ? `Add ${name} to your order`
-      : `Add ${size.toLowerCase()} ${name} to your order`;
+      : `Add ${sizeLabel[size]} ${name} to your order`;
 
   return (
     <button
@@ -77,14 +77,14 @@ export function MenuSection() {
             className="max-w-2xl"
           >
             <div className="flex items-center gap-4">
-              <span className="label-xs text-gold/55">02</span>
+              <span className="label-xs text-gold">02</span>
               <span className="eyebrow text-gold">The menu</span>
             </div>
             <h2 className="display mt-6 text-[2.35rem] text-cream sm:text-[3.1rem] lg:text-[3.7rem]">
               Everything we
               <span className="serif-italic"> make.</span>
             </h2>
-            <p className="mt-6 text-[0.95rem] leading-[1.8] text-cream/60">
+            <p className="mt-6 text-[0.95rem] leading-[1.8] text-body">
               Prices shown are for dine in and takeaway. Delivery pricing may
               differ on partner platforms.
             </p>
@@ -114,11 +114,11 @@ export function MenuSection() {
                 "relative -mb-px pb-5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-colors duration-400",
                 active === c.id
                   ? "text-cream"
-                  : "text-cream/45 hover:text-cream/80"
+                  : "text-body-soft hover:text-cream/80"
               )}
             >
               {c.title}
-              <sup className="ml-1.5 text-[0.6rem] tracking-normal text-gold/70">
+              <sup className="ml-1.5 text-[0.6rem] tracking-normal text-gold">
                 {c.items.length}
               </sup>
               {active === c.id && (
@@ -158,7 +158,7 @@ export function MenuSection() {
                   <h3 className="display mt-3 text-[2.2rem] text-cream sm:text-[2.6rem]">
                     {category.title}
                   </h3>
-                  <p className="mt-4 max-w-sm text-[0.87rem] leading-[1.75] text-cream/65">
+                  <p className="mt-4 max-w-sm text-[0.87rem] leading-[1.75] text-body">
                     {category.blurb}
                   </p>
                 </div>
@@ -172,16 +172,15 @@ export function MenuSection() {
                 Tap a price to add it to your order
               </p>
 
-              {category.priced === "dual" && category.columns && (
+              {category.priced === "sizes" && (
                 <div className="mb-1 hidden grid-cols-[1fr_auto] items-end gap-8 border-b border-line pb-3 sm:grid">
                   <span className="label-xs text-muted">Item</span>
-                  <span className="grid w-44 grid-cols-2 gap-6 text-right">
-                    <span className="label-xs text-muted">
-                      {category.columns[0]}
-                    </span>
-                    <span className="label-xs text-gold/70">
-                      {category.columns[1]}
-                    </span>
+                  <span className="grid w-52 grid-cols-3 gap-4 text-right">
+                    {sizeColumns.map((c) => (
+                      <span key={c.key} className="label-xs text-muted">
+                        {c.label}
+                      </span>
+                    ))}
                   </span>
                 </div>
               )}
@@ -217,25 +216,29 @@ export function MenuSection() {
                         ))}
                       </div>
                       {item.description && (
-                        <p className="mt-2 max-w-md text-[0.87rem] leading-[1.7] text-cream/50">
+                        <p className="mt-2 max-w-md text-[0.87rem] leading-[1.7] text-body-soft">
                           {item.description}
                         </p>
                       )}
                     </div>
 
-                    {category.priced === "dual" ? (
-                      <span className="grid w-28 grid-cols-2 gap-6 text-right sm:w-44">
-                        <PriceButton
-                          name={item.name}
-                          size="Large"
-                          price={item.large!}
-                        />
-                        <PriceButton
-                          name={item.name}
-                          size="Family"
-                          price={item.family!}
-                          tone="gold"
-                        />
+                    {category.priced === "sizes" ? (
+                      <span className="grid w-36 grid-cols-3 gap-3 text-right sm:w-52 sm:gap-4">
+                        {sizeColumns.map((c) => {
+                          const price = item[c.key as keyof MenuItem] as
+                            | string
+                            | undefined;
+                          if (!price) return <span key={c.key} />;
+                          return (
+                            <PriceButton
+                              key={c.key}
+                              name={item.name}
+                              size={c.short}
+                              price={price}
+                              tone={c.key === "party" ? "gold" : "cream"}
+                            />
+                          );
+                        })}
                       </span>
                     ) : (
                       <PriceButton
@@ -250,7 +253,7 @@ export function MenuSection() {
               </ul>
 
               <div className="mt-12 flex flex-col gap-6 border border-line bg-surface p-8 sm:flex-row sm:items-center sm:justify-between">
-                <p className="max-w-sm text-[0.9rem] leading-[1.75] text-cream/60">
+                <p className="max-w-sm text-[0.9rem] leading-[1.75] text-body">
                   Build your order here, then call ahead — we&apos;ll have it hot
                   on the counter when you arrive.
                 </p>

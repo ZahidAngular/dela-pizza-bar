@@ -1,9 +1,10 @@
 export const site = {
   name: "Dela Pizza Bar",
   legalName: "Dela Pizza Bar",
-  tagline: "Dine In · Takeaway",
+  tagline: "Dine In · Takeaway · Halal",
+  halal: true,
   shortDescription:
-    "Stone-baked pizza, golden fish & chips and generous toppings — made fresh every day on Prospect Road.",
+    "Halal stone-baked pizza, golden fish & chips and generous toppings — made fresh every day on Prospect Road.",
   url: "https://delapizzabar.com.au",
 
   phone: {

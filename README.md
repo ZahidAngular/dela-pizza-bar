@@ -33,7 +33,8 @@ that you would have to hunt for.
 | File | What it holds |
 | --- | --- |
 | `lib/site.ts` | Name, phone, address, hours, Instagram, Uber Eats / DoorDash links, map URLs |
-| `lib/menu.ts` | Full menu (categories, items, prices), the three signature pizzas, Google review quotes |
+| `lib/menu.ts` | Full menu transcribed from the printed takeaway menu — five categories, three pizza sizes, combo deals, signature picks |
+| `lib/reviews.ts` | Google Places API fetch, review types and the offline fallback |
 | `lib/order.ts` | Order line types, totals and the plain-text order summary |
 | `public/images/` | All photography (local — no external image hosts) |
 
@@ -49,12 +50,13 @@ Changing a price or a phone number is a one-line edit in `lib/`. Nothing else ne
 4. `Story` — brand story, framed imagery, three numbered pillars
 5. `Signatures` — the three most-ordered pizzas, each addable
 6. `ValueBand` — pricing / dine in / delivery / hours
-7. `MenuSection` — tabbed full menu, prices double as add buttons
-8. `Gallery` — scrolling photo strip + Instagram link
-9. `OrderSection` — call, Uber Eats, DoorDash
-10. `Testimonials` — real Google reviews
-11. `Visit` — embedded map, full hours table, address / phone / Instagram
-12. `Footer` — closing CTA, nav, contact
+7. `MenuSection` — tabbed full menu (L 12" / F 15" / P 18"), prices double as add buttons
+8. `Deals` — the four pick-up combo deals
+9. `Gallery` — scrolling photo strip + Instagram link
+10. `OrderSection` — call, Uber Eats, DoorDash
+11. `Testimonials` — live Google reviews
+12. `Visit` — embedded map, full hours table, address / phone / Instagram
+13. `Footer` — closing CTA, nav, contact
 
 `OrderProvider` wraps the page and `OrderDrawer` renders the floating order bar and panel.
 
@@ -63,8 +65,8 @@ Changing a price or a phone number is a one-line edit in `lib/`. Nothing else ne
 Customers build an order on the site itself instead of being bounced straight to a
 delivery platform.
 
-- **Adding**: every price in the menu *is* the add button — tapping `$22` adds a 12" Large,
-  `$33` adds a 15" Family. Signature cards have an explicit "Add 12" large".
+- **Adding**: every price in the menu *is* the add button — the column you tap is the size
+  you get (L 12", F 15", P 18"). Signature cards and combo deals have explicit add buttons.
 - **State**: `components/OrderProvider.tsx` keeps lines in a small external store read
   through `useSyncExternalStore`, persisted to `localStorage` under `dela-order`. The server
   renders an empty order and the client adopts the saved one on subscribe, so there is no
@@ -74,6 +76,39 @@ delivery platform.
   Uber Eats / DoorDash.
 - **No payments** are taken on the site; the total is confirmed on the phone. That is stated
   in the drawer.
+
+## Google Reviews
+
+The Reviews section, the headline rating and the `aggregateRating` in the structured data
+all come from one cached call to the **Google Places API (New)** — no third-party review
+widget, no external script, and the reviews render in the site's own design.
+
+Set two variables in `.env.local` (see `.env.example`) and it goes live:
+
+```bash
+GOOGLE_PLACES_API_KEY=your-key
+GOOGLE_PLACE_ID=ChIJ...
+```
+
+- **API key**: Google Cloud Console → new project → enable **Places API (New)** →
+  Credentials → create an API key → restrict it to that one API. It is read server-side
+  only and never reaches the browser.
+- **Place ID**: paste `Dela Pizza Bar, 331 Prospect Rd, Blair Athol` into Google's
+  [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id).
+
+`lib/reviews.ts` fetches with `revalidate: 86400`, so the page stays static and Google is
+called once a day regardless of traffic.
+
+**Limits worth knowing** — these are Google's, not the site's:
+
+- The API returns a **maximum of 5 reviews** and chooses which ones ("most relevant").
+  No API tier returns all 240.
+- Reviews cannot be filtered, reordered or edited — displaying them modified breaks
+  Google's terms. The site shows them verbatim with the reviewer's name, photo and
+  attribution link.
+
+Until the keys are set — or if a request fails — `lib/reviews.ts` falls back to a curated
+set of real Google reviews, so the section never renders empty or broken.
 
 ## Theming
 
@@ -99,7 +134,7 @@ brand red is reserved for actions, and champagne gold does the accent work:
 | `surface` (card) | `#16130f` | `#ffffff` |
 | `cream` (text) | `#f7f2e9` | `#1a1512` |
 | `line` (hairline) | `#2b2620` | `#e0d8ca` |
-| `gold` (accent) | `#d9b26a` | `#9a6f22` |
+| `gold` (accent) | `#d9b26a` | `#8a6118` |
 | `brand` (action) | `#d92027` | `#c8161d` |
 
 Type: **Instrument Serif** for display headings (`.display`, sentence case — never shouted,

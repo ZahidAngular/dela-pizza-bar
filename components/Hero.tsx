@@ -6,10 +6,10 @@ import { useRef } from "react";
 import { site } from "@/lib/site";
 
 const stats = [
-  { k: "3.7 ★", v: "240+ Google reviews" },
+  { k: "Halal", v: "Certified" },
   { k: "7 days", v: "11am – 10pm" },
-  { k: '12" & 15"', v: "Large & family" },
-  { k: "From $22", v: "Every pizza" },
+  { k: '12" 15" 18"', v: "Large, family, party" },
+  { k: "From $16", v: "Every pizza" },
 ];
 
 const headline = ["Stone-baked pizza,", "made"];
@@ -54,7 +54,7 @@ export function Hero() {
           <div className="rise-in flex items-center gap-4">
             <span className="gold-line" />
             <span className="eyebrow text-gold">
-              Blair Athol · Adelaide · Since day one
+              Halal · Blair Athol · Adelaide
             </span>
           </div>
 
@@ -77,7 +77,7 @@ export function Hero() {
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
             <p
-              className="rise-in max-w-lg text-[0.95rem] leading-[1.75] text-cream/70"
+              className="rise-in max-w-lg text-[0.95rem] leading-[1.75] text-body"
               style={{ animationDelay: "0.45s" }}
             >
               Hand-stretched dough, a heavy hand with the cheese, and a fryer

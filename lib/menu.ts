@@ -1,9 +1,19 @@
+/**
+ * Transcribed from the shop's printed takeaway menu (the authoritative source).
+ * Pizzas come in three sizes: L 12", F 15", P 18".
+ */
+
 export type MenuItem = {
   name: string;
   description?: string;
+  /** Single-price items (fish & chips, sides, drinks) */
   price?: string;
+  /** L 12" */
   large?: string;
+  /** F 15" */
   family?: string;
+  /** P 18" */
+  party?: string;
   tags?: string[];
 };
 
@@ -13,139 +23,192 @@ export type MenuCategory = {
   kicker: string;
   blurb: string;
   image: string;
-  priced: "dual" | "single";
-  columns?: [string, string];
+  priced: "sizes" | "single";
   items: MenuItem[];
 };
+
+export const sizeColumns = [
+  { key: "large", label: 'L 12"', short: "Large" },
+  { key: "family", label: 'F 15"', short: "Family" },
+  { key: "party", label: 'P 18"', short: "Party" },
+] as const;
 
 export const menu: MenuCategory[] = [
   {
     id: "pizza",
-    title: "Pizza",
+    title: "Traditional",
     kicker: "Stone baked",
     blurb:
-      "Hand-stretched dough, proved daily and finished in a blistering deck oven. Every pizza comes in 12\" Large or 15\" Family.",
+      'Hand-stretched dough, proved daily and finished in a blistering deck oven. Every pizza in L 12", F 15" or P 18".',
     image: "/images/menu-pizza.jpg",
-    priced: "dual",
-    columns: ['12" Large', '15" Family'],
+    priced: "sizes",
     items: [
       {
-        name: "Cheese Lovers",
-        description: "Tomato sauce, a deep blanket of mozzarella",
-        large: "22",
-        family: "33",
+        name: "Cheese Lover's",
+        description: "Tomato sauce, lots of mozzarella cheese",
+        large: "16.00",
+        family: "22.00",
+        party: "32.00",
         tags: ["Vegetarian"],
       },
       {
-        name: "Hawaiian",
-        description: "Tomato sauce, shredded beef, pineapple",
-        large: "22",
-        family: "33",
+        name: "Australian",
+        description: "Tomato sauce, cheese, shredded beef",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
       },
       {
-        name: "Australian",
-        description: "Tomato sauce, shredded beef, mozzarella",
-        large: "22",
-        family: "33",
+        name: "Hawaiian",
+        description: "Tomato sauce, cheese, shredded beef, pineapple",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
       },
       {
         name: "Pepperoni",
         description: "Tomato sauce, salami, cheese",
-        large: "23",
-        family: "34",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
         tags: ["Popular"],
       },
       {
-        name: "Meatlovers",
-        description: "Tomato sauce, salami, shredded beef, smokey beef",
-        large: "23",
-        family: "34",
+        name: "Meat Lover's",
+        description:
+          "Tomato sauce, salami, shredded beef, smokey beef, cheese",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
         tags: ["Popular"],
       },
       {
-        name: "Mushroom",
-        description: "Tomato sauce, shredded beef, mushroom",
-        large: "23",
-        family: "34",
+        name: "Mexicana",
+        description:
+          "Tomato sauce, cheese, onion, salami, capsicum, kalamata olives, hot chilli",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
+        tags: ["Spicy"],
       },
       {
         name: "Margherita",
-        description: "Tomato sauce, tomato, oregano, bocconcini",
-        large: "23",
-        family: "34",
+        description:
+          "Tomato sauce, cheese, fresh tomato, oregano, bocconcini cheese",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
         tags: ["Vegetarian"],
       },
       {
-        name: "Mexican",
-        description: "Tomato sauce, onion, salami, capsicum, olives, chilli",
-        large: "23",
-        family: "34",
-        tags: ["Spicy"],
-      },
-      {
-        name: "Classic Chicken",
-        description: "Barbecue sauce, chicken, onion, capsicum",
-        large: "24",
-        family: "35",
-      },
-      {
-        name: "Chicken Mexican",
-        description:
-          "Tomato sauce, chicken, onion, capsicum, olives, chilli",
-        large: "24",
-        family: "35",
-        tags: ["Spicy"],
-      },
-      {
-        name: "Spicy Chicken Ranch",
-        description: "Tomato sauce, mushroom, tomato, jalapeño, ranch",
-        large: "24",
-        family: "35",
-        tags: ["Spicy"],
-      },
-      {
-        name: "Barbecue Chicken",
-        description:
-          "Tomato sauce, barbecue sauce, mushroom, onion, chicken",
-        large: "24",
-        family: "35",
-      },
-      {
-        name: "Chicken Hawaiian",
-        description: "Tomato sauce, chicken, pineapple",
-        large: "24",
-        family: "35",
+        name: "Mushroom",
+        description: "Tomato sauce, cheese, shredded beef, mushroom",
+        large: "16.50",
+        family: "22.50",
+        party: "32.50",
       },
       {
         name: "The Lot",
         description:
-          "Beef, salami, mushroom, onion, capsicum, pineapple, olives",
-        large: "24",
-        family: "35",
+          "Tomato sauce, cheese, shredded beef, salami, mushroom, onion, capsicum, pineapple, kalamata olives",
+        large: "17.00",
+        family: "23.50",
+        party: "33.50",
         tags: ["Chef's pick"],
       },
       {
         name: "Vegetarian",
         description:
-          "Tomato sauce, mushroom, capsicum, onion, pineapple, olives",
-        large: "24",
-        family: "35",
+          "Tomato sauce, cheese, mushroom, capsicum, onion, pineapple, kalamata olives",
+        large: "17.00",
+        family: "23.00",
+        party: "33.00",
         tags: ["Vegetarian"],
+      },
+    ],
+  },
+  {
+    id: "chicken",
+    title: "Chicken",
+    kicker: "The chicken range",
+    blurb:
+      "Nine chicken pizzas, from a simple barbecue base to the loaded Special. Same three sizes.",
+    image: "/images/sig-special-chicken.jpg",
+    priced: "sizes",
+    items: [
+      {
+        name: "Classic Chicken",
+        description: "Barbecue sauce, cheese, chicken, onion, capsicum",
+        large: "17.00",
+        family: "23.00",
+        party: "33.00",
+      },
+      {
+        name: "Barbecue Chicken",
+        description:
+          "Tomato sauce, cheese, barbecue sauce, mushroom, onion, chicken",
+        large: "17.00",
+        family: "23.00",
+        party: "33.00",
+      },
+      {
+        name: "Chicken Mexicana",
+        description:
+          "Tomato sauce, cheese, chicken, onion, capsicum, kalamata olives, hot chilli",
+        large: "17.00",
+        family: "23.00",
+        party: "33.00",
+        tags: ["Spicy"],
+      },
+      {
+        name: "Chicken Hawaiian",
+        description: "Tomato sauce, cheese, chicken, pineapple",
+        large: "17.00",
+        family: "23.00",
+        party: "33.00",
+      },
+      {
+        name: "Spicy Chicken Ranch",
+        description:
+          "Tomato sauce, cheese, chicken, mushroom, fresh tomato, jalapeño, ranch sauce",
+        large: "17.00",
+        family: "23.00",
+        party: "33.00",
+        tags: ["Spicy"],
       },
       {
         name: "Chicken Feast",
         description:
-          "Barbecue chicken, capsicum, pineapple, mushroom, onion",
-        large: "25",
-        family: "36",
+          "Barbecue sauce, cheese, barbecue chicken, capsicum, pineapple, mushroom, onion",
+        large: "17.50",
+        family: "24.00",
+        party: "34.00",
       },
       {
-        name: "Special Chicken",
+        name: "Chicken Supreme",
         description:
-          "Chicken, mushroom, onion, capsicum, tomato, jalapeño, olives, ranch",
-        large: "27",
-        family: "38",
+          "Tomato sauce, cheese, chicken, mushroom, onion, capsicum, pineapple, kalamata olives",
+        large: "18.00",
+        family: "24.50",
+        party: "35.00",
+      },
+      {
+        name: "Special Pizza",
+        description:
+          "Tomato sauce, cheese, chicken, mushroom, onion, capsicum, fresh tomato, jalapeño, kalamata olives, ranch sauce",
+        large: "19.00",
+        family: "25.00",
+        party: "35.50",
         tags: ["Signature"],
+      },
+      {
+        name: "Spicy Vegetarian",
+        description:
+          "Tomato sauce, cheese, mushroom, onion, capsicum, jalapeño, kalamata olives, ranch sauce, fresh tomato, hot chilli",
+        large: "19.00",
+        family: "25.00",
+        party: "35.50",
+        tags: ["Vegetarian", "Spicy"],
       },
     ],
   },
@@ -155,49 +218,61 @@ export const menu: MenuCategory[] = [
     kicker: "Fried to order",
     blurb:
       "Fresh from the fryer in a light, shattering batter — never sitting under a warmer.",
-    image:
-      "/images/menu-fish-chips.jpg",
+    image: "/images/menu-fish-chips.jpg",
     priced: "single",
     items: [
       {
-        name: "Butterfish",
-        description: "Regular $9 · Large",
-        price: "10",
-        tags: ["Popular"],
-      },
-      {
-        name: "Seafood Pack",
-        description:
-          "Butterfish, 2 calamari, 2 prawns and a generous serve of chips",
-        price: "23",
+        name: "Pack",
+        description: "1 butterfish, 2 calamari, 2 prawn & chips",
+        price: "15.50",
         tags: ["Best value"],
       },
       {
-        name: "Calamari",
-        description: "8 pieces, lightly salted · single piece $2",
-        price: "12.70",
+        name: "Prawn Pack",
+        description: "8 prawn · extra prawns $1.80 each",
+        price: "13.00",
       },
-      { name: "Prawn", description: "Golden crumbed, per piece", price: "2.70" },
-      { name: "Fish Cake", description: "Per piece", price: "2.50" },
-      { name: "Dim Sim", description: "Steamed or fried", price: "2.50" },
-      { name: "Potato Cake", description: "Per piece", price: "2.00" },
-      { name: "Potato Fritter", description: "Per piece", price: "2.00" },
+      {
+        name: "Calamari Pack",
+        description: "8 calamari · extra calamari $1.50 each",
+        price: "11.00",
+      },
+      {
+        name: "Chips",
+        description: "Small $6.50 · large",
+        price: "8.50",
+      },
+      {
+        name: "Butterfish",
+        description: "Regular $6.50 · large",
+        price: "7.00",
+        tags: ["Popular"],
+      },
+      { name: "Tartare Sauce", price: "2.50" },
+      { name: "Dim Sim", price: "2.00" },
+      { name: "Fish Cake", price: "1.80" },
+      { name: "Potato Cake", price: "1.30" },
     ],
   },
   {
     id: "sides",
-    title: "Sides",
+    title: "Garlic Bread",
     kicker: "The extras",
-    blurb: "The little things that finish the table.",
-    image:
-      "/images/menu-sides.jpg",
+    blurb: "Oven-toasted and brushed with garlic butter. Cheaper with a pizza.",
+    image: "/images/menu-sides.jpg",
     priced: "single",
     items: [
       {
         name: "Garlic Bread",
-        description: "Oven-toasted, brushed with garlic butter and herbs",
-        price: "6.50",
+        description: "On its own",
+        price: "5.50",
         tags: ["Vegetarian"],
+      },
+      {
+        name: "Garlic Bread with pizza",
+        description: "When ordered with any pizza",
+        price: "4.50",
+        tags: ["Vegetarian", "Best value"],
       },
     ],
   },
@@ -206,65 +281,68 @@ export const menu: MenuCategory[] = [
     title: "Drinks",
     kicker: "Ice cold",
     blurb: "Straight out of the fridge, always cold.",
-    image:
-      "/images/menu-drinks.jpg",
+    image: "/images/menu-drinks.jpg",
     priced: "single",
     items: [
-      { name: "Coke 1.25L", description: "Family size bottle", price: "6.50" },
-      { name: "Barbican", description: "Non-alcoholic malt, assorted flavours", price: "4.50" },
-      { name: "Can Drinks", description: "Assorted soft drinks, 375ml", price: "3.50" },
-      { name: "Water", description: "Chilled still water", price: "3.00" },
+      { name: "Coke", description: "1.25L bottle", price: "5.50" },
+      { name: "Ginger Beer", price: "5.00" },
+      { name: "Barbican", description: "Non-alcoholic malt", price: "4.00" },
+      { name: "Can Drinks", description: "Assorted, 375ml", price: "3.00" },
+      { name: "Water", price: "2.50" },
     ],
   },
 ];
 
-export const signatures = [
+/** Pick-up only combo deals, straight off the printed menu. */
+export const deals = [
   {
-    name: "The Lot",
-    price: "24",
-    description:
-      "Everything we do well on one base — beef, salami, mushroom, onion, capsicum, pineapple and olives.",
-    image:
-      "/images/sig-the-lot.jpg",
-    badge: "Chef's pick",
+    n: "Deal 1",
+    price: "24.00",
+    items: ["1 large traditional pizza", "Garlic bread", "1.25L drink"],
   },
   {
-    name: "Special Chicken",
-    price: "27",
-    description:
-      "Our house signature. Chicken, jalapeño, ranch and a full garden of toppings, edge to edge.",
-    image:
-      "/images/sig-special-chicken.jpg",
-    badge: "Signature",
+    n: "Deal 2",
+    price: "42.00",
+    items: ["2 large traditional pizzas", "Garlic bread", "1.25L drink"],
   },
   {
-    name: "Meatlovers",
-    price: "23",
-    description:
-      "Salami, shredded beef and smokey beef layered over tomato sauce and mozzarella.",
-    image:
-      "/images/sig-meatlovers.jpg",
-    badge: "Most ordered",
+    n: "Deal 3",
+    price: "60.00",
+    items: ["3 large traditional pizzas", "2 garlic bread", "1.25L drink"],
+  },
+  {
+    n: "Deal 4",
+    price: "30.00",
+    items: ["1 family traditional pizza", "Garlic bread", "1.25L drink"],
   },
 ];
 
-export const testimonials = [
+export const dealsNote =
+  "Pick up only. Extra charges apply on half & half and chicken pizzas.";
+
+export const signatures = [
   {
-    quote:
-      "The pizzas are always delicious. Most of the time I order ahead and they always get fresh and hot pizza.",
-    author: "Mehrab Sadik",
-    source: "Google Review",
+    name: "The Lot",
+    price: "17.00",
+    description:
+      "Everything we do well on one base — shredded beef, salami, mushroom, onion, capsicum, pineapple and kalamata olives.",
+    image: "/images/sig-the-lot.jpg",
+    badge: "Chef's pick",
   },
   {
-    quote:
-      "The customer service was genuinely amazing — super welcoming, friendly, and respectful the whole time.",
-    author: "Les Ho",
-    source: "Google Review",
+    name: "Special Pizza",
+    price: "19.00",
+    description:
+      "Our house signature. Chicken, jalapeño, ranch and a full garden of toppings, edge to edge.",
+    image: "/images/sig-special-chicken.jpg",
+    badge: "Signature",
   },
   {
-    quote:
-      "Dela Pizza Bar does not try to be fancy — just honest, tasty pizza with generous toppings and a smile.",
-    author: "Moh",
-    source: "Google Review",
+    name: "Meat Lover's",
+    price: "16.50",
+    description:
+      "Salami, shredded beef and smokey beef layered over tomato sauce and mozzarella.",
+    image: "/images/sig-meatlovers.jpg",
+    badge: "Most ordered",
   },
 ];

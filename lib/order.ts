@@ -1,4 +1,13 @@
-export type OrderSize = "Large" | "Family" | "Single";
+export type OrderSize = "Large" | "Family" | "Party" | "Single" | "Deal";
+
+/** How each size reads on the printed menu. */
+export const sizeLabel: Record<OrderSize, string> = {
+  Large: 'L 12"',
+  Family: 'F 15"',
+  Party: 'P 18"',
+  Single: "Each",
+  Deal: "Pick up only",
+};
 
 export type OrderLine = {
   /** Stable key: item name + size */
@@ -28,7 +37,10 @@ export function formatOrder(lines: OrderLine[], shopName: string) {
   if (lines.length === 0) return "";
 
   const rows = lines.map((l) => {
-    const size = l.size === "Single" ? "" : ` (${l.size})`;
+    const size =
+      l.size === "Single" || l.size === "Deal"
+        ? ""
+        : ` (${l.size} ${sizeLabel[l.size]})`;
     return `${l.qty} x ${l.name}${size} — ${money(lineTotal(l))}`;
   });
 

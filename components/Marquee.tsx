@@ -1,12 +1,12 @@
 const phrases = [
+  "Halal",
   "Dine in",
   "Takeaway",
   "Open 7 days",
   "11am – 10pm",
   "Stone baked",
-  "Fresh daily",
+  'L 12" · F 15" · P 18"',
   "331 Prospect Road",
-  "Blair Athol SA",
 ];
 
 export function Marquee() {

@@ -56,6 +56,11 @@
   --c-cream: #f7f2e9;
   --c-muted: #9b9287;
 
+  /* Secondary text. Opacity-tinted cream reads fine on near-black, so the
+     dark theme can stay translucent. */
+  --c-text-body: color-mix(in oklab, var(--c-cream) 72%, transparent);
+  --c-text-soft: color-mix(in oklab, var(--c-cream) 58%, transparent);
+
   --shadow-key: 0 30px 60px -30px rgb(0 0 0 / 0.85);
   --grain-opacity: 0.05;
   --grain-blend: normal;
@@ -75,12 +80,17 @@
   --c-brand-bright: #e02a31;
   --c-brand-deep: #8c1013;
 
-  --c-gold: #9a6f22;
+  --c-gold: #8a6118;
   --c-gold-soft: #c99b46;
   --c-gold-deep: #7a5616;
 
   --c-cream: #1a1512;
-  --c-muted: #786d5e;
+  --c-muted: #6d6354;
+
+  /* On cream, the same translucency washes out below 4.5:1 — so light mode
+     uses solid tones picked to clear WCAG AA instead. */
+  --c-text-body: #4b4239;
+  --c-text-soft: #5e5449;
 
   --shadow-key: 0 24px 50px -28px rgb(60 45 25 / 0.35);
   --grain-opacity: 0.035;
@@ -91,6 +101,8 @@
 /* Content sitting on top of photography always uses the dark palette,
    in either theme — white text on an image, never black. */
 .on-photo {
+  --c-text-body: color-mix(in oklab, #f7f2e9 74%, transparent);
+  --c-text-soft: color-mix(in oklab, #f7f2e9 60%, transparent);
   --c-ink: #0b0a09;
   --c-ink-2: #100e0c;
   --c-surface: #16130f;
@@ -130,6 +142,32 @@ body {
 ::selection {
   background: var(--c-gold);
   color: var(--c-ink);
+}
+
+/* Keyboard focus. Visible on photography and on either theme, and never
+   shown for mouse users. */
+:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+.on-photo :focus-visible {
+  outline-color: #f0dcb2;
+}
+
+/* Skip link — first tab stop, hidden until focused */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.2s var(--ease-out-expo);
+}
+/* `:focus`, not `:focus-visible` — a skip link is only ever reached by
+   keyboard, and this also reveals it for programmatic focus. */
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 /* ---------------- Layout ---------------- */
@@ -212,6 +250,15 @@ body {
 /* Component classes live in the components layer so Tailwind utilities
    (hidden, fixed, px-*, …) always win over them at equal specificity. */
 @layer components {
+  /* Secondary copy. Named rather than opacity-tinted, so each theme can pick
+     a value that actually clears contrast on its own background. */
+  .text-body {
+    color: var(--c-text-body);
+  }
+  .text-body-soft {
+    color: var(--c-text-soft);
+  }
+
   .serif-italic {
     font-style: italic;
     color: var(--c-gold);

@@ -9,7 +9,7 @@ export function Visit() {
     <section id="visit" className="relative bg-ink py-28 lg:py-40">
       <div className="container-x">
         <SectionHeading
-          index="05"
+          index="06"
           eyebrow="Visit us"
           title="331 Prospect Road,"
           accent="Blair Athol."
@@ -44,7 +44,7 @@ export function Visit() {
                     key={d.day}
                     className="flex items-center justify-between border-b border-line/70 py-3 text-[0.88rem] last:border-b-0"
                   >
-                    <span className="text-cream/60">{d.day}</span>
+                    <span className="text-body">{d.day}</span>
                     <span className="text-cream/90">
                       {d.open} – {d.close}
                     </span>

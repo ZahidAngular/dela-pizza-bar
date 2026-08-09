@@ -47,7 +47,7 @@ export function Footer() {
                   <li key={n.href}>
                     <a
                       href={n.href}
-                      className="link-underline text-[0.88rem] text-cream/65 transition-colors hover:text-cream"
+                      className="link-underline text-[0.88rem] text-body transition-colors hover:text-cream"
                     >
                       {n.label}
                     </a>
@@ -58,7 +58,7 @@ export function Footer() {
 
             <div>
               <p className="label-xs text-muted">Find us</p>
-              <ul className="mt-6 space-y-5 text-[0.88rem] leading-relaxed text-cream/65">
+              <ul className="mt-6 space-y-5 text-[0.88rem] leading-relaxed text-body">
                 <li className="flex gap-3">
                   <MapPin
                     className="mt-0.5 h-4 w-4 shrink-0 text-gold"

@@ -40,7 +40,7 @@ export function SectionHeading({
           )}
         >
           {index ? (
-            <span className="label-xs text-gold/55">{index}</span>
+            <span className="label-xs text-gold">{index}</span>
           ) : (
             <span className="gold-line" />
           )}
@@ -53,7 +53,7 @@ export function SectionHeading({
         </h2>
 
         {description ? (
-          <p className="mt-6 text-[0.95rem] leading-[1.8] text-cream/60">
+          <p className="mt-6 text-[0.95rem] leading-[1.8] text-body">
             {description}
           </p>
         ) : null}

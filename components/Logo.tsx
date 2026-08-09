@@ -25,7 +25,7 @@ export function Wordmark({ className }: { className?: string }) {
         <span className="display block text-[1.5rem] tracking-[-0.01em] text-cream">
           Dela
         </span>
-        <span className="label-xs mt-1 block text-gold/80">Pizza Bar</span>
+        <span className="label-xs mt-1 block text-gold">Pizza Bar</span>
       </span>
     </span>
   );

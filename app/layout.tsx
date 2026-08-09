@@ -3,6 +3,7 @@ import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { themeInitScript } from "@/components/ThemeToggle";
+import { getReviews } from "@/lib/reviews";
 import { site } from "@/lib/site";
 
 const displaySerif = Instrument_Serif({
@@ -63,7 +64,7 @@ export const viewport: Viewport = {
   colorScheme: "dark light",
 };
 
-const jsonLd = {
+const buildJsonLd = (rating: number, reviewCount: number) => ({
   "@context": "https://schema.org",
   "@type": "Restaurant",
   name: site.name,
@@ -87,8 +88,9 @@ const jsonLd = {
   ],
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "3.7",
-    reviewCount: "240",
+    ratingValue: String(rating),
+    reviewCount: String(reviewCount),
+    bestRating: "5",
   },
   openingHoursSpecification: [
     {
@@ -108,13 +110,18 @@ const jsonLd = {
   ],
   acceptsReservations: "False",
   hasMenu: `${site.url}/#menu`,
-};
+});
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Same cached fetch the Reviews section uses, so the structured data and
+  // the visible rating can never disagree.
+  const { rating, total } = await getReviews();
+  const jsonLd = buildJsonLd(rating, total);
+
   return (
     <html
       lang="en-AU"

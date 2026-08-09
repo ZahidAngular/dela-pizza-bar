@@ -10,6 +10,7 @@ import {
   money,
   orderCount,
   orderTotal,
+  sizeLabel,
 } from "@/lib/order";
 import { site } from "@/lib/site";
 
@@ -129,7 +130,7 @@ export function OrderDrawer() {
                       className="h-8 w-8 text-gold/40"
                       strokeWidth={1.2}
                     />
-                    <p className="max-w-[22ch] text-[0.9rem] leading-relaxed text-cream/55">
+                    <p className="max-w-[22ch] text-[0.9rem] leading-relaxed text-body-soft">
                       Tap any price on the menu to start building your order.
                     </p>
                     <button
@@ -152,8 +153,7 @@ export function OrderDrawer() {
                             {l.name}
                           </p>
                           <p className="label-xs mt-1 text-muted">
-                            {l.size === "Single" ? "Each" : l.size} ·{" "}
-                            {money(l.price)}
+                            {sizeLabel[l.size]} · {money(l.price)}
                           </p>
 
                           <div className="mt-3 flex items-center gap-3">
@@ -162,7 +162,7 @@ export function OrderDrawer() {
                                 type="button"
                                 onClick={() => setQty(l.id, l.qty - 1)}
                                 aria-label={`Remove one ${l.name}`}
-                                className="flex h-8 w-8 items-center justify-center text-cream/70 transition-colors hover:text-gold"
+                                className="flex h-8 w-8 items-center justify-center text-body transition-colors hover:text-gold"
                               >
                                 <Minus className="h-3.5 w-3.5" strokeWidth={1.8} />
                               </button>
@@ -173,7 +173,7 @@ export function OrderDrawer() {
                                 type="button"
                                 onClick={() => setQty(l.id, l.qty + 1)}
                                 aria-label={`Add another ${l.name}`}
-                                className="flex h-8 w-8 items-center justify-center text-cream/70 transition-colors hover:text-gold"
+                                className="flex h-8 w-8 items-center justify-center text-body transition-colors hover:text-gold"
                               >
                                 <Plus className="h-3.5 w-3.5" strokeWidth={1.8} />
                               </button>
@@ -206,7 +206,7 @@ export function OrderDrawer() {
                       {money(total)}
                     </span>
                   </div>
-                  <p className="mt-2 text-[0.75rem] leading-relaxed text-cream/45">
+                  <p className="mt-2 text-[0.75rem] leading-relaxed text-body-soft">
                     Dine-in and pickup pricing. We&apos;ll confirm the total when
                     you call — no payment is taken on this site.
                   </p>
@@ -244,7 +244,7 @@ export function OrderDrawer() {
                         href={site.ordering.uberEats}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="label-xs border border-line py-3 text-center text-cream/70 transition-colors hover:border-gold hover:text-gold"
+                        className="label-xs border border-line py-3 text-center text-body transition-colors hover:border-gold hover:text-gold"
                       >
                         Uber Eats
                       </a>
@@ -252,7 +252,7 @@ export function OrderDrawer() {
                         href={site.ordering.doorDash}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="label-xs border border-line py-3 text-center text-cream/70 transition-colors hover:border-gold hover:text-gold"
+                        className="label-xs border border-line py-3 text-center text-body transition-colors hover:border-gold hover:text-gold"
                       >
                         DoorDash
                       </a>

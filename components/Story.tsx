@@ -29,7 +29,7 @@ export function Story() {
             <div className="zoom-parent relative aspect-4/5 overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[38rem]">
               <Image
                 src="/images/kitchen.jpg"
-                alt="A pizza being prepared in the Dela Pizza Bar kitchen"
+                alt="A pizza shared on a board with sauces and a cold drink"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 className="img-warm object-cover"
@@ -42,7 +42,7 @@ export function Story() {
                 <div className="relative aspect-square">
                   <Image
                     src="/images/dough.jpg"
-                    alt="Fresh pizza dough proving"
+                    alt="A margherita coming out of the deck oven"
                     fill
                     sizes="180px"
                     className="img-warm object-cover"
@@ -74,7 +74,7 @@ export function Story() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="mt-8 max-w-xl space-y-6 text-[0.95rem] leading-[1.85] text-cream/62">
+              <div className="mt-8 max-w-xl space-y-6 text-[0.95rem] leading-[1.85] text-body">
                 <p>
                   Dela Pizza Bar sits on Prospect Road in Blair Athol, feeding
                   Adelaide&apos;s inner north seven days a week. We aren&apos;t
@@ -96,14 +96,14 @@ export function Story() {
                   key={p.title}
                   className="group grid grid-cols-[auto_1fr] gap-6 border-t border-line py-7 transition-colors duration-500 hover:border-gold/40 sm:gap-10"
                 >
-                  <span className="label-xs pt-1.5 text-gold/55 transition-colors duration-500 group-hover:text-gold">
+                  <span className="label-xs pt-1.5 text-gold transition-colors duration-500 group-hover:text-gold">
                     {p.n}
                   </span>
                   <div>
                     <h3 className="display text-[1.45rem] text-cream">
                       {p.title}
                     </h3>
-                    <p className="mt-2 max-w-md text-[0.9rem] leading-[1.75] text-cream/55">
+                    <p className="mt-2 max-w-md text-[0.9rem] leading-[1.75] text-body-soft">
                       {p.body}
                     </p>
                   </div>

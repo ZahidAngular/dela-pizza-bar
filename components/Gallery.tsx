@@ -6,11 +6,11 @@ const shots = [
   { src: "/images/sig-meatlovers.jpg", alt: "Meatlovers pizza fresh from the oven" },
   { src: "/images/gallery-1.jpg", alt: "A slice being lifted from a whole pizza" },
   { src: "/images/sig-the-lot.jpg", alt: "The Lot pizza, loaded edge to edge" },
-  { src: "/images/gallery-2.jpg", alt: "Pizza served on a wooden board" },
+  { src: "/images/gallery-2.jpg", alt: "Golden chips straight out of the fryer" },
   { src: "/images/sig-special-chicken.jpg", alt: "Special Chicken pizza" },
   { src: "/images/menu-pizza.jpg", alt: "Pizza with fresh toppings" },
   { src: "/images/menu-fish-chips.jpg", alt: "Fish and chips basket" },
-  { src: "/images/gallery-3.jpg", alt: "Golden fried sides" },
+  { src: "/images/gallery-3.jpg", alt: "A table sharing pizza together" },
 ];
 
 export function Gallery() {

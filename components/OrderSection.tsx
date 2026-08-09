@@ -51,14 +51,14 @@ export function OrderSection() {
       <div className="container-x relative">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4">
-            <span className="label-xs text-gold/55">03</span>
+            <span className="label-xs text-gold">04</span>
             <span className="eyebrow text-gold">Order</span>
           </div>
           <h2 className="display mt-6 text-[2.35rem] text-cream sm:text-[3.1rem] lg:text-[3.7rem]">
             Three ways to get Dela
             <span className="serif-italic"> to your table.</span>
           </h2>
-          <p className="mt-6 text-[0.95rem] leading-[1.8] text-cream/60">
+          <p className="mt-6 text-[0.95rem] leading-[1.8] text-body">
             Dine in on Prospect Road, pick it up on your way home, or have it
             delivered — whichever suits the night.
           </p>
@@ -80,7 +80,7 @@ export function OrderSection() {
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <span className="label-xs text-gold/55">{c.n}</span>
+                  <span className="label-xs text-gold">{c.n}</span>
                   <ArrowUpRight
                     className="h-5 w-5 text-cream/30 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold"
                     strokeWidth={1.4}
@@ -90,8 +90,8 @@ export function OrderSection() {
                 <h3 className="display mt-10 text-[1.85rem] text-cream transition-colors duration-500 group-hover:text-gold">
                   {c.title}
                 </h3>
-                <p className="label-xs mt-2.5 text-gold/80">{c.subtitle}</p>
-                <p className="mt-5 flex-1 text-[0.88rem] leading-[1.75] text-cream/55">
+                <p className="label-xs mt-2.5 text-gold">{c.subtitle}</p>
+                <p className="mt-5 flex-1 text-[0.88rem] leading-[1.75] text-body-soft">
                   {c.body}
                 </p>
 
