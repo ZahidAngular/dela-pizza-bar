@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Parallax } from "@/components/Parallax";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 
 const pillars = [
@@ -27,13 +28,15 @@ export function Story() {
           {/* Imagery — stretches to the full height of the text column */}
           <Reveal className="relative lg:h-full">
             <div className="zoom-parent relative aspect-4/5 overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[38rem]">
-              <Image
-                src="/images/kitchen.jpg"
-                alt="A pizza shared on a board with sauces and a cold drink"
-                fill
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                className="img-warm object-cover"
-              />
+              <Parallax className="absolute inset-0" amount={10}>
+                <Image
+                  src="/images/kitchen.jpg"
+                  alt="A pizza shared on a board with sauces and a cold drink"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="img-warm object-cover"
+                />
+              </Parallax>
               {/* Strong enough that the caption stays legible over any frame */}
               <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/85 via-black/45 to-transparent" />
 

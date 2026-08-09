@@ -13,29 +13,34 @@ import { Visit } from "@/components/Visit";
 import { Footer } from "@/components/Footer";
 import { OrderProvider } from "@/components/OrderProvider";
 import { OrderDrawer } from "@/components/OrderDrawer";
+import { ContactProvider } from "@/components/ContactProvider";
+import { ContactModal } from "@/components/ContactModal";
 
 export default function Home() {
   return (
     <OrderProvider>
-      <a href="#menu" className="skip-link btn btn-primary px-6 py-3">
-        Skip to the menu
-      </a>
-      <Navbar />
-      <main id="main">
-        <Hero />
-        <Marquee />
-        <Story />
-        <Signatures />
-        <ValueBand />
-        <MenuSection />
-        <Deals />
-        <Gallery />
-        <OrderSection />
-        <Testimonials />
-        <Visit />
-      </main>
-      <Footer />
-      <OrderDrawer />
+      <ContactProvider>
+        <a href="#menu" className="skip-link btn btn-primary px-6 py-3">
+          Skip to the menu
+        </a>
+        <Navbar />
+        <main id="main">
+          <Hero />
+          <Marquee />
+          <Story />
+          <Signatures />
+          <ValueBand />
+          <MenuSection />
+          <Deals />
+          <Gallery />
+          <OrderSection />
+          <Testimonials />
+          <Visit />
+        </main>
+        <Footer />
+        <OrderDrawer />
+        <ContactModal />
+      </ContactProvider>
     </OrderProvider>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Phone, X } from "lucide-react";
 import { Wordmark } from "@/components/Logo";
+import { useContactModal } from "@/components/ContactProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { setOpen: setContactOpen } = useContactModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -47,7 +49,7 @@ export function Navbar() {
       >
         <nav className="container-x flex items-center justify-between gap-8">
           <a href="#top" aria-label={`${site.name} home`} className="shrink-0">
-            <Wordmark />
+            <Wordmark className="h-10" decorative />
           </a>
 
           <ul className="hidden items-center gap-10 lg:flex">
@@ -61,6 +63,17 @@ export function Navbar() {
                 </a>
               </li>
             ))}
+            <li>
+              {/* Contact opens the dialog rather than scrolling — there is
+                  no contact section on the page to scroll to. */}
+              <button
+                type="button"
+                onClick={() => setContactOpen(true)}
+                className="link-underline text-[0.78rem] font-medium uppercase tracking-[0.16em] text-body transition-colors duration-400 hover:text-cream"
+              >
+                Contact
+              </button>
+            </li>
           </ul>
 
           <div className="flex items-center gap-4">
@@ -103,7 +116,7 @@ export function Navbar() {
             className="fixed inset-0 z-60 bg-ink/98 backdrop-blur-2xl lg:hidden"
           >
             <div className="container-x flex h-24 items-center justify-between">
-              <Wordmark />
+              <Wordmark className="h-10" />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -136,6 +149,32 @@ export function Navbar() {
                     </a>
                   </motion.li>
                 ))}
+
+                <motion.li
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.07 * links.length + 0.12,
+                    duration: 0.6,
+                  }}
+                  className="border-b border-cream/8"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // Let the sheet finish sliding away before the dialog
+                      // arrives — the two animations fight otherwise.
+                      setOpen(false);
+                      window.setTimeout(() => setContactOpen(true), 260);
+                    }}
+                    className="display flex w-full items-baseline gap-4 py-5 text-left text-[2.4rem] text-cream/90 transition-colors hover:text-gold"
+                  >
+                    <span className="label-xs text-gold/50">
+                      0{links.length + 1}
+                    </span>
+                    Contact
+                  </button>
+                </motion.li>
               </ul>
 
               <div className="mt-10 space-y-3">

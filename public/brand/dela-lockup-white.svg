@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 344 173.71" width="344" height="174" fill="#ffffff" fill-rule="evenodd">
+  <!-- One-colour lockup: red backgrounds, photography, signage, vinyl. -->
+  <g>
+    <path d="M0 0H60L86 26V74L60 100H0ZM27 27H48.8L59 37.2V62.8L48.8 73H27Z"/>
+    <path transform="translate(99 0)" d="M0 0H70V11L54 27H27V37H62V48L46 64H27V73H54L70 89V100H0Z"/>
+    <path transform="translate(181 0)" d="M0 0H27V73H50L66 89V100H0Z"/>
+    <path transform="translate(252 0)" d="M0 100L26 12L38 0H62L92 100H64L57.5 82H34.5L28 100ZM46 22L36.8 70H55.2Z"/>
+  </g>
+  <g transform="translate(0 124) scale(0.497110)">
+    <path d="M0 0H50L72 22V44L50 66H22V100H0ZM22 22H40.9L50 31.1V34.9L40.9 44H22Z"/>
+    <path transform="translate(88 0)" d="M0 0H22V100H0Z"/>
+    <path transform="translate(126 0)" d="M0 0H70V20L26 78H70V100H0V80L44 22H0Z"/>
+    <path transform="translate(212 0)" d="M0 0H70V20L26 78H70V100H0V80L44 22H0Z"/>
+    <path transform="translate(298 0)" d="M0 100L22 14L36 0H52L78 100H58L53 80H25L20 100ZM39 24L30 60H48Z"/>
+    <path transform="translate(438 0)" d="M0 0H48L68 20V37L58 47.5L68 58V80L48 100H0ZM22 22H39L46 29V38L39 45H22ZM22 55H39L46 62V71L39 78H22Z"/>
+    <path transform="translate(524 0)" d="M0 100L22 14L36 0H52L78 100H58L53 80H25L20 100ZM39 24L30 60H48Z"/>
+    <path transform="translate(618 0)" d="M0 0H50L72 22V44L52 64L74 100H49L30 66H22V100H0ZM22 22H40.9L50 31.1V34.9L40.9 44H22Z"/>
+  </g>
+</svg>

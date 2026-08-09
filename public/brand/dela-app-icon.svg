@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- App icon / social avatar. Profile pictures crop to a circle on most
+       platforms, so the monogram stays well inside the frame. -->
+  <defs>
+    <linearGradient id="g" x1="40" y1="20" x2="470" y2="492" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ef3b41"/>
+      <stop offset="55%" stop-color="#d92027"/>
+      <stop offset="100%" stop-color="#7d1215"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#g)"/>
+  <g transform="translate(140 128) scale(2.56)" fill="#ffffff" fill-rule="evenodd">
+    <path d="M0 0H60L86 26V74L60 100H0ZM27 27H48.8L59 37.2V62.8L48.8 73H27Z"/>
+  </g>
+</svg>
