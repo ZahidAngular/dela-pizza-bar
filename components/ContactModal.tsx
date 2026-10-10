@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Phone, RotateCcw, X } from "lucide-react";
 import { useContactModal } from "@/components/ContactProvider";
-import { loadRecaptcha, submitLead } from "@/lib/formService";
+import { preloadRecaptcha, submitLead } from "@/lib/formService";
 import { site } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -41,9 +41,7 @@ export function ContactModal() {
      attribution requirement. */
   useEffect(() => {
     if (!open) return;
-    loadRecaptcha().catch(() => {
-      /* Surfaced on submit instead, where it can be acted on. */
-    });
+    preloadRecaptcha();
   }, [open]);
 
   useEffect(() => {
