@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Phone, RotateCcw, X } from "lucide-react";
 import { useContactModal } from "@/components/ContactProvider";
-import { preloadRecaptcha, submitLead } from "@/lib/formService";
+import { preloadRecaptcha, submitLead, watchFormSettings } from "@/lib/formService";
 import { site } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -30,6 +30,8 @@ export function ContactModal() {
   const { open, setOpen } = useContactModal();
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  // The "Protected by reCAPTCHA" notice only shows when the dashboard has reCAPTCHA switched on.
+  const [recaptchaOn, setRecaptchaOn] = useState(false);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const firstFieldRef = useRef<HTMLInputElement>(null);
@@ -42,6 +44,7 @@ export function ContactModal() {
   useEffect(() => {
     if (!open) return;
     preloadRecaptcha();
+    watchFormSettings((s) => setRecaptchaOn(s.recaptchaEnabled));
   }, [open]);
 
   useEffect(() => {
@@ -361,6 +364,7 @@ export function ContactModal() {
                         </a>
                       </div>
 
+                      {recaptchaOn && (
                       <p className="mt-7 border-t border-line-soft pt-5 text-center text-[0.7rem] leading-relaxed text-muted">
                         Protected by reCAPTCHA — the Google{" "}
                         <a
@@ -382,6 +386,7 @@ export function ContactModal() {
                         </a>{" "}
                         apply.
                       </p>
+                      )}
                     </motion.form>
                 )}
               </div>

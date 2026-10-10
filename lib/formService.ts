@@ -22,6 +22,7 @@ declare global {
 }
 
 let settingsPromise: Promise<FormSettings> | null = null;
+let freshPromise: Promise<FormSettings> | null = null;
 let recaptchaPromise: Promise<void> | null = null;
 
 function readCachedSettings(): FormSettings | null {
@@ -68,6 +69,7 @@ export function getFormSettings(): Promise<FormSettings> {
 
   const cached = readCachedSettings();
   const fresh = fetchSettings();
+  freshPromise = fresh;
   // Once the fresh copy lands, later calls in this visit use it.
   fresh.then((s) => (settingsPromise = Promise.resolve(s))).catch(() => {});
   settingsPromise = cached
@@ -77,6 +79,15 @@ export function getFormSettings(): Promise<FormSettings> {
         throw err;
       });
   return settingsPromise;
+}
+
+/**
+ * Calls back with the saved settings at once, then again when the fresh copy from
+ * the API lands - so a change made in the dashboard shows on the first page view.
+ */
+export function watchFormSettings(onSettings: (s: FormSettings) => void): void {
+  getFormSettings().then(onSettings).catch(() => {});
+  freshPromise?.then(onSettings).catch(() => {});
 }
 
 /** Preload reCAPTCHA so its badge is visible before the form is submitted. */
